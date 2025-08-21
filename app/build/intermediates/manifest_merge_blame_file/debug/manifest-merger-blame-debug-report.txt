@@ -73,7 +73,7 @@
 42        android:dataExtractionRules="@xml/data_extraction_rules"
 42-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:26:9-65
 43        android:debuggable="true"
-44        android:extractNativeLibs="false"
+44        android:extractNativeLibs="true"
 45        android:fullBackupContent="@xml/backup_rules"
 45-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:27:9-54
 46        android:icon="@mipmap/ic_launcher"

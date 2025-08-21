@@ -24,7 +24,7 @@ import com.example.receipt.server.Font
  */
 class RealEpsonPrinter(
     private val context: Context,
-    private val printerAddress: String = "TCP:192.168.1.100" // Default printer IP
+    private val printerAddress: String = "USB:" // USB connection instead of TCP
 ) : EpsonPrinter, ReceiveListener {
     
     companion object {
@@ -41,14 +41,24 @@ class RealEpsonPrinter(
     
     private fun initializePrinter() {
         try {
+            // The Printer class will load the native library automatically
             // Initialize printer with TM-T88 model
             printer = Printer(Printer.TM_T88, Printer.MODEL_ANK, context).apply {
                 setReceiveEventListener(this@RealEpsonPrinter)
             }
             Log.d(TAG, "Printer initialized successfully")
+        } catch (e: UnsatisfiedLinkError) {
+            Log.e(TAG, "Epson SDK native library not found. Please ensure libepos2.so is included in the project.", e)
+            throw RuntimeException("Epson SDK native library not found: ${e.message}")
+        } catch (e: NoClassDefFoundError) {
+            Log.e(TAG, "Epson SDK classes not found.", e)
+            throw RuntimeException("Epson SDK not properly initialized: ${e.message}")
         } catch (e: Epos2Exception) {
             Log.e(TAG, "Failed to initialize printer: ${e.errorStatus}", e)
             throw RuntimeException("Failed to initialize Epson printer: ${e.errorStatus}")
+        } catch (e: Exception) {
+            Log.e(TAG, "Unexpected error initializing printer", e)
+            throw RuntimeException("Printer initialization failed: ${e.message}")
         }
     }
     

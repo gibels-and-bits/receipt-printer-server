@@ -7,6 +7,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Submission(
+    val team_id: String,
     val teamName: String,
     val interpreterCode: String
 )

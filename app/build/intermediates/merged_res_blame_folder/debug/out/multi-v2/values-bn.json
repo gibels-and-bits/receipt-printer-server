@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.receipt.server.app-mergeDebugResources-49:/values-bn/values-bn.xml",
+            "outputFile": "com.example.receipt.server.app-mergeDebugResources-50:/values-bn/values-bn.xml",
             "map": [
                 {
                     "source": "/Users/axg3658/.gradle/caches/transforms-3/3f0d535beab57300b7b53384706008bf/transformed/core-1.12.0/res/values-bn/values-bn.xml",

@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.receipt.server.app-mergeDebugResources-49:/values-da/values-da.xml",
+            "outputFile": "com.example.receipt.server.app-mergeDebugResources-50:/values-da/values-da.xml",
             "map": [
                 {
                     "source": "/Users/axg3658/.gradle/caches/transforms-3/babbe2a44a52f4da6ab4678fd17cda84/transformed/material3-1.1.2/res/values-da/values-da.xml",

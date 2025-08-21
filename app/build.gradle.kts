@@ -19,6 +19,11 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        
+        // Explicitly specify supported ABIs
+        ndk {
+            abiFilters.addAll(listOf("arm64-v8a", "armeabi-v7a"))
+        }
     }
 
     buildTypes {
@@ -52,12 +57,19 @@ android {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
+        jniLibs {
+            useLegacyPackaging = true
+            keepDebugSymbols += "**/*.so"
+        }
     }
 }
 
 dependencies {
     // Epson ePOS2 SDK
     implementation(files("libs/ePOS2.jar"))
+    
+    // JavaScript engine for interpreter execution
+    implementation("org.mozilla:rhino:1.7.14")
     
     // Android Core
     implementation("androidx.core:core-ktx:1.12.0")
@@ -75,8 +87,9 @@ dependencies {
     // Navigation
     implementation("androidx.navigation:navigation-compose:2.7.5")
     
-    // ViewModel
+    // ViewModel and Lifecycle
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
     
     // Ktor server (embedded in Android app) - simplified
     implementation("io.ktor:ktor-server-core:2.3.5")

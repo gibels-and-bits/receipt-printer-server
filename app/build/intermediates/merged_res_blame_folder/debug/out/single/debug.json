@@ -1,22 +1,22 @@
 [
     {
-        "merged": "com.example.receipt.server.app-merged_res-51:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "com.example.receipt.server.app-main-53:/mipmap-anydpi-v26/ic_launcher_round.xml"
+        "merged": "com.example.receipt.server.app-merged_res-52:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.example.receipt.server.app-main-54:/drawable/ic_launcher_foreground.xml"
     },
     {
-        "merged": "com.example.receipt.server.app-merged_res-51:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "com.example.receipt.server.app-main-53:/mipmap-anydpi-v26/ic_launcher.xml"
+        "merged": "com.example.receipt.server.app-merged_res-52:/xml_data_extraction_rules.xml.flat",
+        "source": "com.example.receipt.server.app-main-54:/xml/data_extraction_rules.xml"
     },
     {
-        "merged": "com.example.receipt.server.app-merged_res-51:/drawable_ic_launcher_foreground.xml.flat",
-        "source": "com.example.receipt.server.app-main-53:/drawable/ic_launcher_foreground.xml"
+        "merged": "com.example.receipt.server.app-merged_res-52:/xml_backup_rules.xml.flat",
+        "source": "com.example.receipt.server.app-main-54:/xml/backup_rules.xml"
     },
     {
-        "merged": "com.example.receipt.server.app-merged_res-51:/xml_backup_rules.xml.flat",
-        "source": "com.example.receipt.server.app-main-53:/xml/backup_rules.xml"
+        "merged": "com.example.receipt.server.app-merged_res-52:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.example.receipt.server.app-main-54:/mipmap-anydpi-v26/ic_launcher.xml"
     },
     {
-        "merged": "com.example.receipt.server.app-merged_res-51:/xml_data_extraction_rules.xml.flat",
-        "source": "com.example.receipt.server.app-main-53:/xml/data_extraction_rules.xml"
+        "merged": "com.example.receipt.server.app-merged_res-52:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.example.receipt.server.app-main-54:/mipmap-anydpi-v26/ic_launcher_round.xml"
     }
 ]

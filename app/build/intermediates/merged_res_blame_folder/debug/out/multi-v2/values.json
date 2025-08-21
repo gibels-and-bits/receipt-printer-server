@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.receipt.server.app-mergeDebugResources-49:/values/values.xml",
+            "outputFile": "com.example.receipt.server.app-mergeDebugResources-50:/values/values.xml",
             "map": [
                 {
                     "source": "/Users/axg3658/.gradle/caches/transforms-3/4da47795e30aac1b5e9914a9fe5390b6/transformed/lifecycle-viewmodel-2.7.0/res/values/values.xml",

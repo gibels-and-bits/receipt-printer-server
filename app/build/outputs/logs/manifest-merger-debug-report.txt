@@ -39,6 +39,7 @@ MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0] /Users/axg
 MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0] /Users/axg3658/.gradle/caches/transforms-3/9b2630845af362ecc913cbb210d99d85/transformed/lifecycle-viewmodel-ktx-2.7.0/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.7.0] /Users/axg3658/.gradle/caches/transforms-3/4da47795e30aac1b5e9914a9fe5390b6/transformed/lifecycle-viewmodel-2.7.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.7.0] /Users/axg3658/.gradle/caches/transforms-3/752232dbc4cc00461ca7ec2e026924f2/transformed/lifecycle-runtime-2.7.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-runtime-compose:2.7.0] /Users/axg3658/.gradle/caches/transforms-3/1ca4a8681d8f1266c5dbae1886a5c8e6/transformed/lifecycle-runtime-compose-2.7.0/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.7.0] /Users/axg3658/.gradle/caches/transforms-3/64486b58a541edd4906db93a3d5bb58f/transformed/lifecycle-runtime-ktx-2.7.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0] /Users/axg3658/.gradle/caches/transforms-3/302c0fe9cecba936fa25eeea08d0d793/transformed/lifecycle-viewmodel-compose-2.7.0/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.compose.ui:ui-android:1.5.4] /Users/axg3658/.gradle/caches/transforms-3/148ea605ab151aa4d12c399fc389aec0/transformed/ui-release/AndroidManifest.xml:2:1-7:12
@@ -250,6 +251,8 @@ MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.7.0] /Users/axg3658/.gradl
 MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.7.0] /Users/axg3658/.gradle/caches/transforms-3/4da47795e30aac1b5e9914a9fe5390b6/transformed/lifecycle-viewmodel-2.7.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.7.0] /Users/axg3658/.gradle/caches/transforms-3/752232dbc4cc00461ca7ec2e026924f2/transformed/lifecycle-runtime-2.7.0/AndroidManifest.xml:5:5-44
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.7.0] /Users/axg3658/.gradle/caches/transforms-3/752232dbc4cc00461ca7ec2e026924f2/transformed/lifecycle-runtime-2.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-compose:2.7.0] /Users/axg3658/.gradle/caches/transforms-3/1ca4a8681d8f1266c5dbae1886a5c8e6/transformed/lifecycle-runtime-compose-2.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-compose:2.7.0] /Users/axg3658/.gradle/caches/transforms-3/1ca4a8681d8f1266c5dbae1886a5c8e6/transformed/lifecycle-runtime-compose-2.7.0/AndroidManifest.xml:5:5-44
 MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.7.0] /Users/axg3658/.gradle/caches/transforms-3/64486b58a541edd4906db93a3d5bb58f/transformed/lifecycle-runtime-ktx-2.7.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.7.0] /Users/axg3658/.gradle/caches/transforms-3/64486b58a541edd4906db93a3d5bb58f/transformed/lifecycle-runtime-ktx-2.7.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0] /Users/axg3658/.gradle/caches/transforms-3/302c0fe9cecba936fa25eeea08d0d793/transformed/lifecycle-viewmodel-compose-2.7.0/AndroidManifest.xml:5:5-44
