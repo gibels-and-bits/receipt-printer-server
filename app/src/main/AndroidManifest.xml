@@ -12,7 +12,14 @@
     
     <!-- For printer connection if using USB -->
     <uses-permission android:name="android.permission.USB_PERMISSION" />
+    <uses-permission android:name="com.android.permission.USB_PERMISSION" />
     <uses-feature android:name="android.hardware.usb.host" android:required="false" />
+    
+    <!-- Bluetooth permissions for Bluetooth printers -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
 
     <application
         android:allowBackup="true"

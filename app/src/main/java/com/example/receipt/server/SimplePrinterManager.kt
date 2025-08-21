@@ -22,8 +22,8 @@ data class TextStyle(
     val size: TextSize = TextSize.NORMAL
 )
 
-enum class TextSize { SMALL, NORMAL, LARGE }
-enum class BarcodeType { CODE39, CODE128, EAN13, QR }
+enum class TextSize { SMALL, NORMAL, LARGE, XLARGE }
+enum class BarcodeType { CODE39, CODE128, EAN13, UPC_A, UPC_E, EAN8, ITF, CODABAR, CODE93, GS1_128 }
 enum class Alignment { LEFT, CENTER, RIGHT }
 enum class Font { A, B }
 
@@ -33,9 +33,11 @@ data class BarcodeOptions(
     val hri: Boolean = true
 )
 
+enum class QRErrorCorrection { L, M, Q, H }
+
 data class QRCodeOptions(
     val size: Int = 3,
-    val errorCorrection: String = "M"
+    val errorCorrection: QRErrorCorrection = QRErrorCorrection.M
 )
 
 data class ImageOptions(
@@ -44,11 +46,25 @@ data class ImageOptions(
 )
 
 // Printer Manager
-class PrinterManager {
+class PrinterManager(private val context: android.content.Context? = null) {
     private val realPrinterEnabled = ConcurrentHashMap<String, Boolean>()
     private val mockPrinter = LoggingPrinter()
+    private var realPrinter: com.example.receipt.server.printer.RealEpsonPrinter? = null
     
-    fun getRealPrinter(): EpsonPrinter = mockPrinter
+    fun getRealPrinter(): EpsonPrinter {
+        // Initialize real printer if context is available and not already initialized
+        if (context != null && realPrinter == null) {
+            try {
+                realPrinter = com.example.receipt.server.printer.RealEpsonPrinter(context)
+                println("Real Epson printer initialized successfully")
+            } catch (e: Exception) {
+                println("Failed to initialize real printer, using mock: ${e.message}")
+                return mockPrinter
+            }
+        }
+        return realPrinter ?: mockPrinter
+    }
+    
     fun getMockPrinter(): EpsonPrinter = mockPrinter
     
     fun isRealPrintEnabled(teamId: String): Boolean = realPrinterEnabled[teamId] == true

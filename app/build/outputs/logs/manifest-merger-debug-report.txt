@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:2:1-43:12
-INJECTED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:2:1-43:12
-INJECTED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:2:1-43:12
-INJECTED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:2:1-43:12
+ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:2:1-50:12
+INJECTED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:2:1-50:12
+INJECTED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:2:1-50:12
+INJECTED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:2:1-50:12
 MERGED from [androidx.navigation:navigation-common:2.7.5] /Users/axg3658/.gradle/caches/transforms-3/9d178dacc0b06fad1b24f6cc13b6960c/transformed/navigation-common-2.7.5/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.navigation:navigation-runtime:2.7.5] /Users/axg3658/.gradle/caches/transforms-3/04f37fda6ba6291d2b6da52a29b40323/transformed/navigation-runtime-2.7.5/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.navigation:navigation-common-ktx:2.7.5] /Users/axg3658/.gradle/caches/transforms-3/45b64d8311cfcd6c69e1d5a48438ccde/transformed/navigation-common-ktx-2.7.5/AndroidManifest.xml:2:1-7:12
@@ -85,15 +85,35 @@ uses-permission#android.permission.USB_PERMISSION
 ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:14:5-73
 	android:name
 		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:14:22-70
-uses-feature#android.hardware.usb.host
-ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:15:5-87
-	android:required
-		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:15:60-84
+uses-permission#com.android.permission.USB_PERMISSION
+ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:15:5-77
 	android:name
-		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:15:19-59
+		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:15:22-74
+uses-feature#android.hardware.usb.host
+ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:16:5-87
+	android:required
+		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:16:60-84
+	android:name
+		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:16:19-59
+uses-permission#android.permission.BLUETOOTH
+ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:19:5-68
+	android:name
+		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:19:22-65
+uses-permission#android.permission.BLUETOOTH_ADMIN
+ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:20:5-74
+	android:name
+		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:20:22-71
+uses-permission#android.permission.BLUETOOTH_CONNECT
+ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:21:5-76
+	android:name
+		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:21:22-73
+uses-permission#android.permission.BLUETOOTH_SCAN
+ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:22:5-73
+	android:name
+		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:22:22-70
 application
-ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:17:5-41:19
-INJECTED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:17:5-41:19
+ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:24:5-48:19
+INJECTED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:24:5-48:19
 MERGED from [androidx.compose.ui:ui-test-manifest:1.5.4] /Users/axg3658/.gradle/caches/transforms-3/69f16d1fda9fb5345aa5655096642099/transformed/ui-test-manifest-1.5.4/AndroidManifest.xml:22:5-26:19
 MERGED from [androidx.compose.ui:ui-test-manifest:1.5.4] /Users/axg3658/.gradle/caches/transforms-3/69f16d1fda9fb5345aa5655096642099/transformed/ui-test-manifest-1.5.4/AndroidManifest.xml:22:5-26:19
 MERGED from [androidx.compose.ui:ui-tooling-android:1.5.4] /Users/axg3658/.gradle/caches/transforms-3/07445b224c611494c7da40e13bd24ae7/transformed/ui-tooling-release/AndroidManifest.xml:22:5-26:19
@@ -115,47 +135,47 @@ MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/axg3658/.gradle/cach
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.12.0] /Users/axg3658/.gradle/caches/transforms-3/3f0d535beab57300b7b53384706008bf/transformed/core-1.12.0/AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:24:9-35
+		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:31:9-35
 	android:label
-		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:22:9-47
+		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:29:9-47
 	android:fullBackupContent
-		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:20:9-54
+		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:27:9-54
 	android:roundIcon
-		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:23:9-54
+		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:30:9-54
 	tools:targetApi
-		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:27:9-29
+		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:34:9-29
 	android:icon
-		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:21:9-43
+		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:28:9-43
 	android:allowBackup
-		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:18:9-35
+		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:25:9-35
 	android:theme
-		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:25:9-58
+		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:32:9-58
 	android:dataExtractionRules
-		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:19:9-65
+		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:26:9-65
 	android:usesCleartextTraffic
-		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:26:9-44
+		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:33:9-44
 activity#com.example.receipt.server.SimplifiedMainActivity
-ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:29:9-39:20
+ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:36:9-46:20
 	android:screenOrientation
-		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:32:13-50
+		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:39:13-50
 	android:exported
-		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:31:13-36
+		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:38:13-36
 	android:configChanges
-		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:33:13-74
+		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:40:13-74
 	android:theme
-		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:34:13-62
+		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:41:13-62
 	android:name
-		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:30:13-51
+		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:37:13-51
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:35:13-38:29
+ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:42:13-45:29
 action#android.intent.action.MAIN
-ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:36:17-69
+ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:43:17-69
 	android:name
-		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:36:25-66
+		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:43:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:37:17-77
+ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:44:17-77
 	android:name
-		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:37:27-74
+		ADDED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:44:27-74
 uses-sdk
 INJECTED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml

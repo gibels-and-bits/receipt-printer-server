@@ -28,150 +28,167 @@
 20    <uses-permission android:name="android.permission.USB_PERMISSION" />
 20-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:14:5-73
 20-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:14:22-70
-21
-22    <uses-feature
-22-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:15:5-87
-23        android:name="android.hardware.usb.host"
-23-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:15:19-59
-24        android:required="false" />
-24-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:15:60-84
-25
-26    <permission
-26-->[androidx.core:core:1.12.0] /Users/axg3658/.gradle/caches/transforms-3/3f0d535beab57300b7b53384706008bf/transformed/core-1.12.0/AndroidManifest.xml:22:5-24:47
-27        android:name="com.example.receipt.server.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-27-->[androidx.core:core:1.12.0] /Users/axg3658/.gradle/caches/transforms-3/3f0d535beab57300b7b53384706008bf/transformed/core-1.12.0/AndroidManifest.xml:23:9-81
-28        android:protectionLevel="signature" />
-28-->[androidx.core:core:1.12.0] /Users/axg3658/.gradle/caches/transforms-3/3f0d535beab57300b7b53384706008bf/transformed/core-1.12.0/AndroidManifest.xml:24:9-44
-29
-30    <uses-permission android:name="com.example.receipt.server.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-30-->[androidx.core:core:1.12.0] /Users/axg3658/.gradle/caches/transforms-3/3f0d535beab57300b7b53384706008bf/transformed/core-1.12.0/AndroidManifest.xml:26:5-97
-30-->[androidx.core:core:1.12.0] /Users/axg3658/.gradle/caches/transforms-3/3f0d535beab57300b7b53384706008bf/transformed/core-1.12.0/AndroidManifest.xml:26:22-94
-31
-32    <application
-32-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:17:5-41:19
-33        android:allowBackup="true"
-33-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:18:9-35
-34        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-34-->[androidx.core:core:1.12.0] /Users/axg3658/.gradle/caches/transforms-3/3f0d535beab57300b7b53384706008bf/transformed/core-1.12.0/AndroidManifest.xml:28:18-86
-35        android:dataExtractionRules="@xml/data_extraction_rules"
-35-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:19:9-65
-36        android:debuggable="true"
-37        android:extractNativeLibs="false"
-38        android:fullBackupContent="@xml/backup_rules"
-38-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:20:9-54
-39        android:icon="@mipmap/ic_launcher"
-39-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:21:9-43
-40        android:label="Receipt Printer Server"
-40-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:22:9-47
-41        android:roundIcon="@mipmap/ic_launcher_round"
-41-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:23:9-54
-42        android:supportsRtl="true"
-42-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:24:9-35
-43        android:theme="@style/Theme.ReceiptPrinterServer"
-43-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:25:9-58
-44        android:usesCleartextTraffic="true" >
-44-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:26:9-44
-45        <activity
-45-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:29:9-39:20
-46            android:name="com.example.receipt.server.SimplifiedMainActivity"
-46-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:30:13-51
-47            android:configChanges="orientation|keyboardHidden|screenSize"
-47-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:33:13-74
-48            android:exported="true"
-48-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:31:13-36
-49            android:screenOrientation="landscape"
-49-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:32:13-50
-50            android:theme="@style/Theme.ReceiptPrinterServer" >
-50-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:34:13-62
-51            <intent-filter>
-51-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:35:13-38:29
-52                <action android:name="android.intent.action.MAIN" />
-52-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:36:17-69
-52-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:36:25-66
-53
-54                <category android:name="android.intent.category.LAUNCHER" />
-54-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:37:17-77
-54-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:37:27-74
-55            </intent-filter>
-56        </activity>
-57        <activity
-57-->[androidx.compose.ui:ui-test-manifest:1.5.4] /Users/axg3658/.gradle/caches/transforms-3/69f16d1fda9fb5345aa5655096642099/transformed/ui-test-manifest-1.5.4/AndroidManifest.xml:23:9-25:39
-58            android:name="androidx.activity.ComponentActivity"
-58-->[androidx.compose.ui:ui-test-manifest:1.5.4] /Users/axg3658/.gradle/caches/transforms-3/69f16d1fda9fb5345aa5655096642099/transformed/ui-test-manifest-1.5.4/AndroidManifest.xml:24:13-63
-59            android:exported="true" />
-59-->[androidx.compose.ui:ui-test-manifest:1.5.4] /Users/axg3658/.gradle/caches/transforms-3/69f16d1fda9fb5345aa5655096642099/transformed/ui-test-manifest-1.5.4/AndroidManifest.xml:25:13-36
-60        <activity
-60-->[androidx.compose.ui:ui-tooling-android:1.5.4] /Users/axg3658/.gradle/caches/transforms-3/07445b224c611494c7da40e13bd24ae7/transformed/ui-tooling-release/AndroidManifest.xml:23:9-25:39
-61            android:name="androidx.compose.ui.tooling.PreviewActivity"
-61-->[androidx.compose.ui:ui-tooling-android:1.5.4] /Users/axg3658/.gradle/caches/transforms-3/07445b224c611494c7da40e13bd24ae7/transformed/ui-tooling-release/AndroidManifest.xml:24:13-71
-62            android:exported="true" />
-62-->[androidx.compose.ui:ui-tooling-android:1.5.4] /Users/axg3658/.gradle/caches/transforms-3/07445b224c611494c7da40e13bd24ae7/transformed/ui-tooling-release/AndroidManifest.xml:25:13-36
-63
-64        <provider
-64-->[androidx.emoji2:emoji2:1.4.0] /Users/axg3658/.gradle/caches/transforms-3/18c730b54fe36e851a549465dd81c5c1/transformed/emoji2-1.4.0/AndroidManifest.xml:24:9-32:20
-65            android:name="androidx.startup.InitializationProvider"
-65-->[androidx.emoji2:emoji2:1.4.0] /Users/axg3658/.gradle/caches/transforms-3/18c730b54fe36e851a549465dd81c5c1/transformed/emoji2-1.4.0/AndroidManifest.xml:25:13-67
-66            android:authorities="com.example.receipt.server.androidx-startup"
-66-->[androidx.emoji2:emoji2:1.4.0] /Users/axg3658/.gradle/caches/transforms-3/18c730b54fe36e851a549465dd81c5c1/transformed/emoji2-1.4.0/AndroidManifest.xml:26:13-68
-67            android:exported="false" >
-67-->[androidx.emoji2:emoji2:1.4.0] /Users/axg3658/.gradle/caches/transforms-3/18c730b54fe36e851a549465dd81c5c1/transformed/emoji2-1.4.0/AndroidManifest.xml:27:13-37
-68            <meta-data
-68-->[androidx.emoji2:emoji2:1.4.0] /Users/axg3658/.gradle/caches/transforms-3/18c730b54fe36e851a549465dd81c5c1/transformed/emoji2-1.4.0/AndroidManifest.xml:29:13-31:52
-69                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-69-->[androidx.emoji2:emoji2:1.4.0] /Users/axg3658/.gradle/caches/transforms-3/18c730b54fe36e851a549465dd81c5c1/transformed/emoji2-1.4.0/AndroidManifest.xml:30:17-75
-70                android:value="androidx.startup" />
-70-->[androidx.emoji2:emoji2:1.4.0] /Users/axg3658/.gradle/caches/transforms-3/18c730b54fe36e851a549465dd81c5c1/transformed/emoji2-1.4.0/AndroidManifest.xml:31:17-49
-71            <meta-data
-71-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/axg3658/.gradle/caches/transforms-3/8343f02bb5271ca90092721e495b6b0d/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:29:13-31:52
-72                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-72-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/axg3658/.gradle/caches/transforms-3/8343f02bb5271ca90092721e495b6b0d/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:30:17-78
-73                android:value="androidx.startup" />
-73-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/axg3658/.gradle/caches/transforms-3/8343f02bb5271ca90092721e495b6b0d/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:31:17-49
-74            <meta-data
-74-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:29:13-31:52
-75                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-75-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:30:17-85
-76                android:value="androidx.startup" />
-76-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:31:17-49
-77        </provider>
-78
-79        <receiver
-79-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:34:9-52:20
-80            android:name="androidx.profileinstaller.ProfileInstallReceiver"
-80-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:35:13-76
-81            android:directBootAware="false"
-81-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:36:13-44
-82            android:enabled="true"
-82-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:37:13-35
-83            android:exported="true"
-83-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:38:13-36
-84            android:permission="android.permission.DUMP" >
-84-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:39:13-57
-85            <intent-filter>
-85-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:40:13-42:29
-86                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
-86-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:41:17-91
-86-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:41:25-88
-87            </intent-filter>
-88            <intent-filter>
-88-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:43:13-45:29
-89                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
-89-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:44:17-85
-89-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:44:25-82
-90            </intent-filter>
-91            <intent-filter>
-91-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:46:13-48:29
-92                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
-92-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:47:17-88
-92-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:47:25-85
-93            </intent-filter>
-94            <intent-filter>
-94-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:49:13-51:29
-95                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
-95-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:50:17-95
-95-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:50:25-92
-96            </intent-filter>
-97        </receiver>
-98    </application>
-99
-100</manifest>
+21    <uses-permission android:name="com.android.permission.USB_PERMISSION" />
+21-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:15:5-77
+21-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:15:22-74
+22
+23    <uses-feature
+23-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:16:5-87
+24        android:name="android.hardware.usb.host"
+24-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:16:19-59
+25        android:required="false" />
+25-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:16:60-84
+26
+27    <!-- Bluetooth permissions for Bluetooth printers -->
+28    <uses-permission android:name="android.permission.BLUETOOTH" />
+28-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:19:5-68
+28-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:19:22-65
+29    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+29-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:20:5-74
+29-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:20:22-71
+30    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+30-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:21:5-76
+30-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:21:22-73
+31    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+31-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:22:5-73
+31-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:22:22-70
+32
+33    <permission
+33-->[androidx.core:core:1.12.0] /Users/axg3658/.gradle/caches/transforms-3/3f0d535beab57300b7b53384706008bf/transformed/core-1.12.0/AndroidManifest.xml:22:5-24:47
+34        android:name="com.example.receipt.server.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+34-->[androidx.core:core:1.12.0] /Users/axg3658/.gradle/caches/transforms-3/3f0d535beab57300b7b53384706008bf/transformed/core-1.12.0/AndroidManifest.xml:23:9-81
+35        android:protectionLevel="signature" />
+35-->[androidx.core:core:1.12.0] /Users/axg3658/.gradle/caches/transforms-3/3f0d535beab57300b7b53384706008bf/transformed/core-1.12.0/AndroidManifest.xml:24:9-44
+36
+37    <uses-permission android:name="com.example.receipt.server.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+37-->[androidx.core:core:1.12.0] /Users/axg3658/.gradle/caches/transforms-3/3f0d535beab57300b7b53384706008bf/transformed/core-1.12.0/AndroidManifest.xml:26:5-97
+37-->[androidx.core:core:1.12.0] /Users/axg3658/.gradle/caches/transforms-3/3f0d535beab57300b7b53384706008bf/transformed/core-1.12.0/AndroidManifest.xml:26:22-94
+38
+39    <application
+39-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:24:5-48:19
+40        android:allowBackup="true"
+40-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:25:9-35
+41        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+41-->[androidx.core:core:1.12.0] /Users/axg3658/.gradle/caches/transforms-3/3f0d535beab57300b7b53384706008bf/transformed/core-1.12.0/AndroidManifest.xml:28:18-86
+42        android:dataExtractionRules="@xml/data_extraction_rules"
+42-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:26:9-65
+43        android:debuggable="true"
+44        android:extractNativeLibs="false"
+45        android:fullBackupContent="@xml/backup_rules"
+45-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:27:9-54
+46        android:icon="@mipmap/ic_launcher"
+46-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:28:9-43
+47        android:label="Receipt Printer Server"
+47-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:29:9-47
+48        android:roundIcon="@mipmap/ic_launcher_round"
+48-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:30:9-54
+49        android:supportsRtl="true"
+49-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:31:9-35
+50        android:theme="@style/Theme.ReceiptPrinterServer"
+50-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:32:9-58
+51        android:usesCleartextTraffic="true" >
+51-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:33:9-44
+52        <activity
+52-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:36:9-46:20
+53            android:name="com.example.receipt.server.SimplifiedMainActivity"
+53-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:37:13-51
+54            android:configChanges="orientation|keyboardHidden|screenSize"
+54-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:40:13-74
+55            android:exported="true"
+55-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:38:13-36
+56            android:screenOrientation="landscape"
+56-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:39:13-50
+57            android:theme="@style/Theme.ReceiptPrinterServer" >
+57-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:41:13-62
+58            <intent-filter>
+58-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:42:13-45:29
+59                <action android:name="android.intent.action.MAIN" />
+59-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:43:17-69
+59-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:43:25-66
+60
+61                <category android:name="android.intent.category.LAUNCHER" />
+61-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:44:17-77
+61-->/Users/axg3658/Development/hackathon/receipt-printer-server/app/src/main/AndroidManifest.xml:44:27-74
+62            </intent-filter>
+63        </activity>
+64        <activity
+64-->[androidx.compose.ui:ui-test-manifest:1.5.4] /Users/axg3658/.gradle/caches/transforms-3/69f16d1fda9fb5345aa5655096642099/transformed/ui-test-manifest-1.5.4/AndroidManifest.xml:23:9-25:39
+65            android:name="androidx.activity.ComponentActivity"
+65-->[androidx.compose.ui:ui-test-manifest:1.5.4] /Users/axg3658/.gradle/caches/transforms-3/69f16d1fda9fb5345aa5655096642099/transformed/ui-test-manifest-1.5.4/AndroidManifest.xml:24:13-63
+66            android:exported="true" />
+66-->[androidx.compose.ui:ui-test-manifest:1.5.4] /Users/axg3658/.gradle/caches/transforms-3/69f16d1fda9fb5345aa5655096642099/transformed/ui-test-manifest-1.5.4/AndroidManifest.xml:25:13-36
+67        <activity
+67-->[androidx.compose.ui:ui-tooling-android:1.5.4] /Users/axg3658/.gradle/caches/transforms-3/07445b224c611494c7da40e13bd24ae7/transformed/ui-tooling-release/AndroidManifest.xml:23:9-25:39
+68            android:name="androidx.compose.ui.tooling.PreviewActivity"
+68-->[androidx.compose.ui:ui-tooling-android:1.5.4] /Users/axg3658/.gradle/caches/transforms-3/07445b224c611494c7da40e13bd24ae7/transformed/ui-tooling-release/AndroidManifest.xml:24:13-71
+69            android:exported="true" />
+69-->[androidx.compose.ui:ui-tooling-android:1.5.4] /Users/axg3658/.gradle/caches/transforms-3/07445b224c611494c7da40e13bd24ae7/transformed/ui-tooling-release/AndroidManifest.xml:25:13-36
+70
+71        <provider
+71-->[androidx.emoji2:emoji2:1.4.0] /Users/axg3658/.gradle/caches/transforms-3/18c730b54fe36e851a549465dd81c5c1/transformed/emoji2-1.4.0/AndroidManifest.xml:24:9-32:20
+72            android:name="androidx.startup.InitializationProvider"
+72-->[androidx.emoji2:emoji2:1.4.0] /Users/axg3658/.gradle/caches/transforms-3/18c730b54fe36e851a549465dd81c5c1/transformed/emoji2-1.4.0/AndroidManifest.xml:25:13-67
+73            android:authorities="com.example.receipt.server.androidx-startup"
+73-->[androidx.emoji2:emoji2:1.4.0] /Users/axg3658/.gradle/caches/transforms-3/18c730b54fe36e851a549465dd81c5c1/transformed/emoji2-1.4.0/AndroidManifest.xml:26:13-68
+74            android:exported="false" >
+74-->[androidx.emoji2:emoji2:1.4.0] /Users/axg3658/.gradle/caches/transforms-3/18c730b54fe36e851a549465dd81c5c1/transformed/emoji2-1.4.0/AndroidManifest.xml:27:13-37
+75            <meta-data
+75-->[androidx.emoji2:emoji2:1.4.0] /Users/axg3658/.gradle/caches/transforms-3/18c730b54fe36e851a549465dd81c5c1/transformed/emoji2-1.4.0/AndroidManifest.xml:29:13-31:52
+76                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+76-->[androidx.emoji2:emoji2:1.4.0] /Users/axg3658/.gradle/caches/transforms-3/18c730b54fe36e851a549465dd81c5c1/transformed/emoji2-1.4.0/AndroidManifest.xml:30:17-75
+77                android:value="androidx.startup" />
+77-->[androidx.emoji2:emoji2:1.4.0] /Users/axg3658/.gradle/caches/transforms-3/18c730b54fe36e851a549465dd81c5c1/transformed/emoji2-1.4.0/AndroidManifest.xml:31:17-49
+78            <meta-data
+78-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/axg3658/.gradle/caches/transforms-3/8343f02bb5271ca90092721e495b6b0d/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:29:13-31:52
+79                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+79-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/axg3658/.gradle/caches/transforms-3/8343f02bb5271ca90092721e495b6b0d/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:30:17-78
+80                android:value="androidx.startup" />
+80-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/axg3658/.gradle/caches/transforms-3/8343f02bb5271ca90092721e495b6b0d/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:31:17-49
+81            <meta-data
+81-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:29:13-31:52
+82                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+82-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:30:17-85
+83                android:value="androidx.startup" />
+83-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:31:17-49
+84        </provider>
+85
+86        <receiver
+86-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:34:9-52:20
+87            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+87-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:35:13-76
+88            android:directBootAware="false"
+88-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:36:13-44
+89            android:enabled="true"
+89-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:37:13-35
+90            android:exported="true"
+90-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:38:13-36
+91            android:permission="android.permission.DUMP" >
+91-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:39:13-57
+92            <intent-filter>
+92-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:40:13-42:29
+93                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+93-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:41:17-91
+93-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:41:25-88
+94            </intent-filter>
+95            <intent-filter>
+95-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:43:13-45:29
+96                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+96-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:44:17-85
+96-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:44:25-82
+97            </intent-filter>
+98            <intent-filter>
+98-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:46:13-48:29
+99                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+99-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:47:17-88
+99-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:47:25-85
+100            </intent-filter>
+101            <intent-filter>
+101-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:49:13-51:29
+102                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+102-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:50:17-95
+102-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/axg3658/.gradle/caches/transforms-3/96fb773ba60179276e134d10b7a19ffa/transformed/profileinstaller-1.3.0/AndroidManifest.xml:50:25-92
+103            </intent-filter>
+104        </receiver>
+105    </application>
+106
+107</manifest>

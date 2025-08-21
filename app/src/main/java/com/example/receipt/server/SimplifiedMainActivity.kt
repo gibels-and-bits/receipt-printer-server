@@ -17,8 +17,13 @@ import kotlinx.coroutines.launch
 
 class SimplifiedMainActivity : ComponentActivity() {
     
+    private lateinit var printerManager: PrinterManager
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
+        // Initialize PrinterManager with context for real Epson printer
+        printerManager = PrinterManager(this)
         
         // Start the Ktor server in background
         CoroutineScope(Dispatchers.IO).launch {
