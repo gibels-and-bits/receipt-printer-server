@@ -1,0 +1,7 @@
+#Thu Aug 21 15:36:20 CDT 2025
+base.1=/Users/axg3658/Development/hackathon/receipt-printer-server/app/build/intermediates/dex/release/mergeDexRelease/classes2.dex
+path.1=classes2.dex
+base.0=/Users/axg3658/Development/hackathon/receipt-printer-server/app/build/intermediates/dex/release/mergeDexRelease/classes.dex
+renamed.1=classes2.dex
+renamed.0=classes.dex
+path.0=classes.dex
