@@ -5,6 +5,7 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.http.*
+import io.ktor.server.plugins.contentnegotiation.*
 import kotlinx.serialization.json.*
 import com.example.receipt.server.models.*
 
@@ -13,19 +14,56 @@ fun Routing.setupRoutes() {
     val queueManager = QueueManager(maxConcurrent = 3)
     val printerManager = PrinterManager()
     
+    // Helper function to validate team name
+    fun validateTeamName(teamName: String): String? {
+        return when {
+            teamName.isBlank() -> "Team name cannot be empty"
+            teamName.length < 3 -> "Team name must be at least 3 characters long"
+            teamName.length > 50 -> "Team name must be less than 50 characters"
+            !teamName.matches(Regex("^[a-zA-Z0-9_-]+$")) -> "Team name can only contain letters, numbers, underscores, and hyphens"
+            else -> null
+        }
+    }
+    
+    // Helper function to validate Kotlin code
+    fun validateKotlinCode(code: String): String? {
+        return when {
+            code.isBlank() -> "Interpreter code cannot be empty"
+            code.length < 50 -> "Interpreter code seems too short. Please provide a complete implementation"
+            !code.contains("fun interpret") -> "Interpreter must contain a function named 'interpret'"
+            !code.contains("EpsonPrinter") -> "Interpreter must use the EpsonPrinter parameter"
+            else -> null
+        }
+    }
+    
     // Submit interpreter endpoint
     post("/submit") {
         try {
             val submission = call.receive<Submission>()
             
-            // Validate submission
-            if (submission.teamName.isBlank()) {
-                call.respond(HttpStatusCode.BadRequest, mapOf("error" to "Team name is required"))
+            // Validate team name
+            val teamNameError = validateTeamName(submission.teamName)
+            if (teamNameError != null) {
+                call.respond(
+                    HttpStatusCode.BadRequest, 
+                    mapOf(
+                        "error" to "Invalid team name",
+                        "details" to teamNameError
+                    )
+                )
                 return@post
             }
             
-            if (submission.interpreterCode.isBlank()) {
-                call.respond(HttpStatusCode.BadRequest, mapOf("error" to "Interpreter code is required"))
+            // Validate Kotlin code
+            val codeError = validateKotlinCode(submission.interpreterCode)
+            if (codeError != null) {
+                call.respond(
+                    HttpStatusCode.BadRequest,
+                    mapOf(
+                        "error" to "Invalid interpreter code",
+                        "details" to codeError
+                    )
+                )
                 return@post
             }
             
@@ -42,10 +80,21 @@ fun Routing.setupRoutes() {
             )
             
             println("Interpreter submitted for team: ${submission.teamName} (ID: $teamId)")
+        } catch (e: ContentTransformationException) {
+            call.respond(
+                HttpStatusCode.BadRequest,
+                mapOf(
+                    "error" to "Invalid request format",
+                    "details" to "Please ensure your request is valid JSON with 'teamName' and 'interpreterCode' fields"
+                )
+            )
         } catch (e: Exception) {
             call.respond(
                 HttpStatusCode.InternalServerError,
-                mapOf("error" to "Failed to store interpreter: ${e.message}")
+                mapOf(
+                    "error" to "Server error occurred",
+                    "details" to "Failed to store interpreter: ${e.message}"
+                )
             )
         }
     }
@@ -146,8 +195,16 @@ fun Routing.setupRoutes() {
         try {
             val update = call.receive<InterpreterUpdate>()
             
-            if (update.interpreterCode.isBlank()) {
-                call.respond(HttpStatusCode.BadRequest, mapOf("error" to "Interpreter code is required"))
+            // Validate Kotlin code
+            val codeError = validateKotlinCode(update.interpreterCode)
+            if (codeError != null) {
+                call.respond(
+                    HttpStatusCode.BadRequest,
+                    mapOf(
+                        "error" to "Invalid interpreter code",
+                        "details" to codeError
+                    )
+                )
                 return@put
             }
             
