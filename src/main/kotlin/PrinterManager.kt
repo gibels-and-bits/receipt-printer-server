@@ -52,6 +52,13 @@ class PrinterManager {
     }
     
     /**
+     * Get list of teams with printer enabled
+     */
+    fun getEnabledTeams(): List<String> {
+        return realPrinterEnabled.filter { it.value }.keys.toList()
+    }
+    
+    /**
      * Initialize connection to real printer
      */
     private fun initializePrinter() {

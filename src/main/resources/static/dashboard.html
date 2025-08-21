@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt Printer Admin Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header .subtitle {
+            color: #666;
+            font-size: 1.2em;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .stat-card .value {
+            font-size: 3em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .stat-card .label {
+            color: #666;
+            font-size: 1.1em;
+        }
+        
+        .teams-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .team-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .team-card.printer-enabled {
+            border: 3px solid #10b981;
+        }
+        
+        .team-card.printer-enabled::before {
+            content: '🖨️ PRINTER ENABLED';
+            position: absolute;
+            top: 10px;
+            right: -45px;
+            background: #10b981;
+            color: white;
+            padding: 5px 50px;
+            font-size: 0.8em;
+            font-weight: bold;
+            transform: rotate(45deg);
+        }
+        
+        .team-name {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .team-id {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            font-family: monospace;
+        }
+        
+        .team-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+        
+        .status-ready {
+            background: #e0f2fe;
+            color: #0369a1;
+        }
+        
+        .status-printer {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: white;
+            font-size: 1.5em;
+        }
+        
+        .error {
+            background: #fee;
+            color: #c00;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .refresh-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+        
+        .refresh-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .refresh-btn:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧾 Receipt Printer Admin</h1>
+            <div class="subtitle">Hackathon Team Management Dashboard</div>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <div class="value" id="totalTeams">0</div>
+                <div class="label">Total Teams</div>
+            </div>
+            <div class="stat-card">
+                <div class="value" id="printerEnabled">0</div>
+                <div class="label">Printer Access</div>
+            </div>
+            <div class="stat-card">
+                <div class="value" id="queueStatus">0/3</div>
+                <div class="label">Queue Status</div>
+            </div>
+        </div>
+        
+        <div id="teamsContainer" class="teams-grid">
+            <div class="loading">Loading teams...</div>
+        </div>
+    </div>
+    
+    <button class="refresh-btn" onclick="loadTeams()">🔄 Refresh</button>
+    
+    <script>
+        let teams = [];
+        let printerEnabledTeams = new Set();
+        
+        async function loadTeams() {
+            try {
+                const response = await fetch('/api/admin/teams');
+                if (!response.ok) throw new Error('Failed to load teams');
+                
+                const data = await response.json();
+                teams = data.teams || [];
+                printerEnabledTeams = new Set(data.printerEnabledTeams || []);
+                
+                updateStats();
+                renderTeams();
+            } catch (error) {
+                console.error('Error loading teams:', error);
+                document.getElementById('teamsContainer').innerHTML = 
+                    '<div class="error">Failed to load teams. Please check the server connection.</div>';
+            }
+        }
+        
+        function updateStats() {
+            document.getElementById('totalTeams').textContent = teams.length;
+            document.getElementById('printerEnabled').textContent = printerEnabledTeams.size;
+            
+            // Update queue status
+            fetch('/api/admin/queue-status')
+                .then(res => res.json())
+                .then(data => {
+                    const used = data.maxSlots - data.availableSlots;
+                    document.getElementById('queueStatus').textContent = `${used}/${data.maxSlots}`;
+                })
+                .catch(err => console.error('Failed to load queue status:', err));
+        }
+        
+        function renderTeams() {
+            const container = document.getElementById('teamsContainer');
+            
+            if (teams.length === 0) {
+                container.innerHTML = '<div class="loading">No teams have submitted yet</div>';
+                return;
+            }
+            
+            container.innerHTML = teams.map(team => {
+                const isPrinterEnabled = printerEnabledTeams.has(team.teamId);
+                return `
+                    <div class="team-card ${isPrinterEnabled ? 'printer-enabled' : ''}" 
+                         onclick="viewTeamDetails('${team.teamId}')">
+                        <div class="team-name">${escapeHtml(team.teamName)}</div>
+                        <div class="team-id">ID: ${team.teamId}</div>
+                        <div class="team-status">
+                            <span class="status-badge status-ready">Ready</span>
+                            ${isPrinterEnabled ? '<span class="status-badge status-printer">Printer Access</span>' : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function viewTeamDetails(teamId) {
+            window.location.href = `/admin/team/${teamId}`;
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        // Load teams on page load
+        loadTeams();
+        
+        // Auto-refresh every 5 seconds
+        setInterval(loadTeams, 5000);
+    </script>
+</body>
+</html>

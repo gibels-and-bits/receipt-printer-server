@@ -6,8 +6,20 @@ import javax.script.ScriptException
 import com.example.receipt.server.printer.EpsonPrinter
 import java.util.concurrent.ConcurrentHashMap
 
+data class TeamData(
+    val teamName: String,
+    val interpreterCode: String
+)
+
+data class TeamStats(
+    val lastActivity: Long? = null,
+    val printJobCount: Int = 0
+)
+
 class InterpreterManager {
     private val interpreters = ConcurrentHashMap<String, String>()
+    private val teamNames = ConcurrentHashMap<String, String>()
+    private val teamStats = ConcurrentHashMap<String, TeamStats>()
     private val scriptEngineManager = ScriptEngineManager()
     
     /**
@@ -17,7 +29,9 @@ class InterpreterManager {
     fun store(teamName: String, code: String): String {
         val teamId = generateTeamId(teamName)
         val wrappedCode = wrapInterpreterCode(code)
-        interpreters[teamId] = wrappedCode
+        interpreters[teamId] = code  // Store original code for display
+        teamNames[teamId] = teamName
+        teamStats[teamId] = TeamStats()
         return teamId
     }
     
@@ -28,7 +42,16 @@ class InterpreterManager {
     fun load(teamId: String): InterpreterScript {
         val code = interpreters[teamId] 
             ?: throw NoSuchElementException("No interpreter found for team: $teamId")
-        return InterpreterScript(code)
+        
+        // Update last activity
+        val stats = teamStats[teamId] ?: TeamStats()
+        teamStats[teamId] = stats.copy(
+            lastActivity = System.currentTimeMillis(),
+            printJobCount = stats.printJobCount + 1
+        )
+        
+        val wrappedCode = wrapInterpreterCode(code)
+        return InterpreterScript(wrappedCode)
     }
     
     /**
@@ -39,8 +62,7 @@ class InterpreterManager {
         if (!interpreters.containsKey(teamId)) {
             throw NoSuchElementException("No interpreter found for team: $teamId")
         }
-        val wrappedCode = wrapInterpreterCode(code)
-        interpreters[teamId] = wrappedCode
+        interpreters[teamId] = code  // Store original code
     }
     
     /**
@@ -51,7 +73,31 @@ class InterpreterManager {
     /**
      * List all registered teams
      */
-    fun listTeams(): List<String> = interpreters.keys.toList()
+    fun listTeams(): List<Map<String, String>> {
+        return interpreters.keys.map { teamId ->
+            mapOf(
+                "teamId" to teamId,
+                "teamName" to (teamNames[teamId] ?: teamId)
+            )
+        }
+    }
+    
+    /**
+     * Get team data for admin display
+     */
+    fun getTeamData(teamId: String): TeamData {
+        val code = interpreters[teamId]
+            ?: throw NoSuchElementException("No interpreter found for team: $teamId")
+        val name = teamNames[teamId] ?: teamId
+        return TeamData(teamName = name, interpreterCode = code)
+    }
+    
+    /**
+     * Get team statistics
+     */
+    fun getTeamStats(teamId: String): TeamStats {
+        return teamStats[teamId] ?: TeamStats()
+    }
     
     /**
      * Generate team ID from team name

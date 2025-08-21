@@ -64,9 +64,15 @@ fun Application.module() {
         }
     }
     
+    // Create shared managers
+    val interpreterManager = InterpreterManager()
+    val printerManager = PrinterManager()
+    val queueManager = QueueManager(maxConcurrent = 3)
+    
     // Set up routing
     routing {
-        setupRoutes()
+        setupRoutes(interpreterManager, printerManager, queueManager)
+        setupAdminRoutes(interpreterManager, printerManager, queueManager)
         
         // Health check endpoint
         get("/health") {

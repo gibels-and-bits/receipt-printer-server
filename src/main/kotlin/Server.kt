@@ -9,10 +9,11 @@ import io.ktor.server.plugins.contentnegotiation.*
 import kotlinx.serialization.json.*
 import com.example.receipt.server.models.*
 
-fun Routing.setupRoutes() {
-    val interpreterManager = InterpreterManager()
-    val queueManager = QueueManager(maxConcurrent = 3)
-    val printerManager = PrinterManager()
+fun Routing.setupRoutes(
+    interpreterManager: InterpreterManager,
+    printerManager: PrinterManager,
+    queueManager: QueueManager
+) {
     
     // Helper function to validate team name
     fun validateTeamName(teamName: String): String? {
@@ -134,16 +135,30 @@ fun Routing.setupRoutes() {
             
             // Execute interpreter with JSON
             println("Executing interpreter for team: $teamId")
-            interpreter.execute(jsonString, printer)
             
-            call.respond(
-                HttpStatusCode.OK,
-                mapOf(
-                    "success" to true,
-                    "message" to "Print job completed",
-                    "mode" to if (printerManager.isRealPrintEnabled(teamId)) "real" else "mock"
+            try {
+                interpreter.execute(jsonString, printer)
+                
+                call.respond(
+                    HttpStatusCode.OK,
+                    mapOf(
+                        "success" to true,
+                        "message" to "Print job completed",
+                        "mode" to if (printerManager.isRealPrintEnabled(teamId)) "real" else "mock"
+                    )
                 )
-            )
+            } catch (e: RuntimeException) {
+                // Interpreter execution failed
+                call.respond(
+                    HttpStatusCode.InternalServerError,
+                    mapOf(
+                        "error" to "Interpreter execution failed",
+                        "details" to (e.message ?: "Your interpreter crashed during execution. Check your code for errors.")
+                    )
+                )
+                println("Interpreter crashed for team $teamId: ${e.message}")
+                e.printStackTrace()
+            }
             
             println("Print job completed for team: $teamId")
         } catch (e: NoSuchElementException) {
