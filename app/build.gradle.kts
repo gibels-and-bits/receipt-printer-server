@@ -75,29 +75,18 @@ dependencies {
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
     
-    // Ktor server (embedded in Android app)
+    // Ktor server (embedded in Android app) - simplified
     implementation("io.ktor:ktor-server-core:2.3.5")
-    implementation("io.ktor:ktor-server-netty:2.3.5")
+    implementation("io.ktor:ktor-server-cio:2.3.5") // Use CIO instead of Netty for Android
     implementation("io.ktor:ktor-server-content-negotiation:2.3.5")
     implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.5")
     implementation("io.ktor:ktor-server-cors:2.3.5")
-    implementation("io.ktor:ktor-server-status-pages:2.3.5")
-    implementation("io.ktor:ktor-server-host-common:2.3.5")
-    
-    // Kotlin scripting for interpreter execution
-    implementation("org.jetbrains.kotlin:kotlin-scripting-jsr223:1.9.20")
-    implementation("org.jetbrains.kotlin:kotlin-script-runtime:1.9.20")
-    implementation("org.jetbrains.kotlin:kotlin-compiler-embeddable:1.9.20")
-    implementation("org.jetbrains.kotlin:kotlin-scripting-compiler-embeddable:1.9.20")
     
     // Serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
     
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
-    
-    // Logging
-    implementation("ch.qos.logback:logback-classic:1.4.11")
     
     // Testing
     testImplementation("junit:junit:4.13.2")
