@@ -580,7 +580,15 @@ class KtorServer(
             // Execute in background
             GlobalScope.launch {
                 try {
-                    val printer = printerManager.getMockPrinter() // Always use mock for now
+                    // Use real printer if enabled for this team, otherwise fail
+                    val printer = if (printerManager.isRealPrintEnabled(job.teamId)) {
+                        printerManager.getRealPrinter()
+                    } else {
+                        // For now, enable real print for all teams by default
+                        printerManager.enableRealPrint(job.teamId)
+                        printerManager.getRealPrinter()
+                    }
+                    
                     executeCompiledCommands(printer, job.commands)
                     serverDataManager.completeCurrentJob(true)
                     
@@ -600,19 +608,16 @@ class KtorServer(
     private fun executeCompiledCommands(printer: EpsonPrinter, commands: List<PrinterCommand>) {
         Log.i(TAG, "Executing ${commands.size} compiled printer commands")
         
-        for (command in commands) {
+        for ((index, command) in commands.withIndex()) {
             try {
-                Log.d(TAG, "Executing command: ${command.type} with params: ${command.params}")
+                Log.d(TAG, "Executing command $index: ${command.type}")
                 
                 when (command.type.uppercase()) {
                     "ADDTEXT", "ADD_TEXT" -> {
-                        // Try direct text field first, then params
-                        val text = command.text ?: 
-                                  command.params?.get("text")?.toString()?.trim('"')
-                        text?.let { 
-                            Log.d(TAG, "Adding text: $it")
-                            printer.addText(it) 
-                        }
+                        val text = command.text 
+                            ?: throw IllegalArgumentException("ADD_TEXT command missing 'text' field")
+                        Log.d(TAG, "Adding text: $text")
+                        printer.addText(text)
                     }
                     "ADDTEXTSTYLE", "ADD_TEXT_STYLE" -> {
                         val style = com.example.receipt.server.TextStyle(
@@ -625,6 +630,7 @@ class KtorServer(
                                 else -> com.example.receipt.server.TextSize.NORMAL
                             }
                         )
+                        Log.d(TAG, "Setting text style: bold=${style.bold}, size=${style.size}, underline=${style.underline}")
                         printer.addTextStyle(style)
                     }
                     "ADDTEXTALIGN", "ADD_TEXT_ALIGN" -> {
@@ -633,20 +639,20 @@ class KtorServer(
                             "RIGHT" -> com.example.receipt.server.Alignment.RIGHT
                             else -> com.example.receipt.server.Alignment.LEFT
                         }
+                        Log.d(TAG, "Setting text alignment: $alignment")
                         printer.addTextAlign(alignment)
                     }
                     "ADDQRCODE", "ADD_QR_CODE" -> {
-                        command.data?.let { 
-                            val options = com.example.receipt.server.QRCodeOptions(
-                                size = command.qrSize ?: 3
-                            )
-                            printer.addQRCode(it, options)
-                        }
+                        val data = command.data 
+                            ?: throw IllegalArgumentException("ADD_QR_CODE command missing 'data' field")
+                        val options = com.example.receipt.server.QRCodeOptions(
+                            size = command.qrSize ?: 3
+                        )
+                        Log.d(TAG, "Adding QR code: data=$data, size=${options.size}")
+                        printer.addQRCode(data, options)
                     }
                     "ADDFEEDLINE", "ADD_FEED_LINE" -> {
-                        // Try direct lines field first, then params
-                        val lines = command.lines ?: 
-                                   command.params?.get("lines")?.toString()?.trim('"')?.toIntOrNull() ?: 1
+                        val lines = command.lines ?: 1
                         Log.d(TAG, "Adding feed lines: $lines")
                         printer.addFeedLine(lines)
                     }
@@ -655,13 +661,16 @@ class KtorServer(
                         printer.cutPaper()
                     }
                     else -> {
-                        Log.w(TAG, "Unknown printer command type: ${command.type}")
+                        throw IllegalArgumentException("Unknown printer command type: ${command.type}")
                     }
                 }
             } catch (e: Exception) {
-                Log.e(TAG, "Error executing command ${command.type}", e)
+                Log.e(TAG, "Failed to execute command $index (${command.type})", e)
+                // Fail fast - propagate the error
+                throw RuntimeException("Print command execution failed at command $index (${command.type}): ${e.message}", e)
             }
         }
+        Log.i(TAG, "Successfully executed all ${commands.size} printer commands")
     }
     
     private fun executePrintCommands(printer: EpsonPrinter, content: String) {
@@ -748,6 +757,5 @@ data class PrinterCommand(
     val underline: Boolean? = null,
     val data: String? = null,
     val qrSize: Int? = null,
-    val lines: Int? = null,
-    val params: Map<String, String>? = null  // Changed to String instead of JsonElement
+    val lines: Int? = null
 )
