@@ -18,6 +18,8 @@ import io.ktor.server.http.content.*
 import java.io.File
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 /**
  * Production Ktor server for receipt printer
@@ -80,11 +82,11 @@ class KtorServer(
         routing {
             // Root endpoint - API info
             get("/") {
-                call.respond(mapOf(
-                    "service" to "Receipt Printer Server",
-                    "version" to "1.0.0",
-                    "status" to "running",
-                    "endpoints" to listOf(
+                call.respond(HttpStatusCode.OK, RootResponse(
+                    service = "Receipt Printer Server",
+                    version = "1.0.0",
+                    status = "running",
+                    endpoints = listOf(
                         "/health",
                         "/api/submit",
                         "/api/print",
@@ -97,10 +99,14 @@ class KtorServer(
             
             // Health check
             get("/health") {
-                call.respond(HttpStatusCode.OK, mapOf("status" to "healthy", "timestamp" to System.currentTimeMillis()))
+                call.respond(HttpStatusCode.OK, HealthResponse(
+                    status = "healthy",
+                    timestamp = System.currentTimeMillis()
+                ))
             }
             
             // Team submission endpoint
+            /* OLD SUBMIT ENDPOINT - COMMENTED OUT
             post("/api/submit") {
                 Log.i(TAG, "Received submission request")
                 try {
@@ -198,7 +204,9 @@ class KtorServer(
                     ))
                 }
             }
+            END OF OLD SUBMIT ENDPOINT */
             
+            /* COMMENTED OUT - OLD PRINT ENDPOINTS
             // Print job submission with teamId in path
             post("/api/print/{teamId}") {
                 try {
@@ -443,35 +451,37 @@ class KtorServer(
                     ))
                 }
             }
+            END OF OLD PRINT ENDPOINTS */
             
             // Admin endpoints
+            /* Commented out - old API
             get("/api/admin/teams") {
                 call.respond(serverDataManager.teamsFlow.value)
-            }
+            }*/
             
-            get("/api/admin/clients") {
+            /* get("/api/admin/clients") {
                 call.respond(serverDataManager.clientsFlow.value)
-            }
+            } */
             
             get("/api/admin/statistics") {
                 call.respond(serverDataManager.getStatistics())
             }
             
-            post("/api/admin/team/{teamId}/printer/enable") {
+            /* post("/api/admin/team/{teamId}/printer/enable") {
                 val teamId = call.parameters["teamId"] ?: return@post call.respond(HttpStatusCode.BadRequest)
                 serverDataManager.enablePrinterForTeam(teamId)
                 printerManager.enableRealPrint(teamId)
                 call.respond(HttpStatusCode.OK, mapOf("success" to true))
-            }
+            } */
             
-            post("/api/admin/team/{teamId}/printer/disable") {
+            /* post("/api/admin/team/{teamId}/printer/disable") {
                 val teamId = call.parameters["teamId"] ?: return@post call.respond(HttpStatusCode.BadRequest)
                 serverDataManager.disablePrinterForTeam(teamId)
                 printerManager.disableRealPrint(teamId)
                 call.respond(HttpStatusCode.OK, mapOf("success" to true))
-            }
+            } */
             
-            // Delete specific team
+            /* // Delete specific team
             delete("/api/admin/team/{teamId}") {
                 val teamId = call.parameters["teamId"] ?: return@delete call.respond(HttpStatusCode.BadRequest)
                 val deleted = serverDataManager.deleteTeam(teamId)
@@ -480,12 +490,176 @@ class KtorServer(
                 } else {
                     call.respond(HttpStatusCode.NotFound, mapOf("success" to false, "message" to "Team not found"))
                 }
-            }
+            } */
             
             // Clear all data (for testing)
             delete("/api/admin/clear") {
                 serverDataManager.clearAllData()
-                call.respond(HttpStatusCode.OK, mapOf("success" to true, "message" to "All data cleared"))
+                call.respond(HttpStatusCode.OK, SimpleResponse(
+                    success = true,
+                    message = "All data cleared"
+                ))
+            }
+            
+            // Register upload endpoint (notifies Android server of uploads)
+            post("/api/register-upload") {
+                try {
+                    val request = call.receive<RegisterUploadRequest>()
+                    
+                    // Register the upload with compilation status
+                    serverDataManager.registerUpload(
+                        request.team_id, 
+                        request.team_name,
+                        request.compilation_status,
+                        request.error_message
+                    )
+                    
+                    call.respond(HttpStatusCode.OK, SimpleResponse(
+                        success = true,
+                        message = "Upload registered for team: ${request.team_name}"
+                    ))
+                } catch (e: Exception) {
+                    Log.e(TAG, "Error registering upload", e)
+                    call.respond(HttpStatusCode.InternalServerError, SimpleResponse(
+                        success = false,
+                        message = "Failed to register upload: ${e.message}"
+                    ))
+                }
+            }
+            
+            // New endpoint for pre-compiled printer commands from compilation server
+            post("/api/print-commands") {
+                try {
+                    val request = call.receive<PrintCommandsRequest>()
+                    
+                    // Extract team name (use team_id as fallback)
+                    val teamName = request.team_name ?: request.team_id
+                    
+                    // Add to print queue
+                    val result = serverDataManager.addPrintJob(
+                        teamId = request.team_id,
+                        teamName = teamName,
+                        commands = request.commands
+                    )
+                    
+                    when (result) {
+                        is PrintJobResult.Success -> {
+                            // Process queue if no current job
+                            if (serverDataManager.currentJobFlow.value == null) {
+                                processNextPrintJob()
+                            }
+                            
+                            call.respond(HttpStatusCode.OK, PrintResponse(
+                                success = true,
+                                message = "Print job queued at position ${result.queuePosition}",
+                                jobId = result.jobId
+                            ))
+                        }
+                        is PrintJobResult.QueueFull -> {
+                            call.respond(HttpStatusCode.ServiceUnavailable, PrintResponse(
+                                success = false,
+                                message = "Print queue is full. Please try again later."
+                            ))
+                        }
+                    }
+                    
+                } catch (e: Exception) {
+                    Log.e(TAG, "Error processing compiled print commands", e)
+                    call.respond(HttpStatusCode.InternalServerError, PrintResponse(
+                        success = false,
+                        message = "Failed to process print commands: ${e.message}"
+                    ))
+                }
+            }
+        }
+    }
+    
+    private fun processNextPrintJob() {
+        val job = serverDataManager.getNextJob()
+        if (job != null) {
+            // Execute in background
+            GlobalScope.launch {
+                try {
+                    val printer = printerManager.getMockPrinter() // Always use mock for now
+                    executeCompiledCommands(printer, job.commands)
+                    serverDataManager.completeCurrentJob(true)
+                    
+                    // Process next job if available
+                    processNextPrintJob()
+                } catch (e: Exception) {
+                    Log.e(TAG, "Error executing print job ${job.id}", e)
+                    serverDataManager.completeCurrentJob(false)
+                    
+                    // Still process next job even if this one failed
+                    processNextPrintJob()
+                }
+            }
+        }
+    }
+    
+    private fun executeCompiledCommands(printer: EpsonPrinter, commands: List<PrinterCommand>) {
+        Log.i(TAG, "Executing ${commands.size} compiled printer commands")
+        
+        for (command in commands) {
+            try {
+                Log.d(TAG, "Executing command: ${command.type} with params: ${command.params}")
+                
+                when (command.type.uppercase()) {
+                    "ADDTEXT", "ADD_TEXT" -> {
+                        // Try direct text field first, then params
+                        val text = command.text ?: 
+                                  command.params?.get("text")?.toString()?.trim('"')
+                        text?.let { 
+                            Log.d(TAG, "Adding text: $it")
+                            printer.addText(it) 
+                        }
+                    }
+                    "ADDTEXTSTYLE", "ADD_TEXT_STYLE" -> {
+                        val style = com.example.receipt.server.TextStyle(
+                            bold = command.bold ?: false,
+                            underline = command.underline ?: false,
+                            size = when (command.size) {
+                                "SMALL" -> com.example.receipt.server.TextSize.SMALL
+                                "LARGE" -> com.example.receipt.server.TextSize.LARGE
+                                "XLARGE" -> com.example.receipt.server.TextSize.XLARGE
+                                else -> com.example.receipt.server.TextSize.NORMAL
+                            }
+                        )
+                        printer.addTextStyle(style)
+                    }
+                    "ADDTEXTALIGN", "ADD_TEXT_ALIGN" -> {
+                        val alignment = when (command.alignment) {
+                            "CENTER" -> com.example.receipt.server.Alignment.CENTER
+                            "RIGHT" -> com.example.receipt.server.Alignment.RIGHT
+                            else -> com.example.receipt.server.Alignment.LEFT
+                        }
+                        printer.addTextAlign(alignment)
+                    }
+                    "ADDQRCODE", "ADD_QR_CODE" -> {
+                        command.data?.let { 
+                            val options = com.example.receipt.server.QRCodeOptions(
+                                size = command.qrSize ?: 3
+                            )
+                            printer.addQRCode(it, options)
+                        }
+                    }
+                    "ADDFEEDLINE", "ADD_FEED_LINE" -> {
+                        // Try direct lines field first, then params
+                        val lines = command.lines ?: 
+                                   command.params?.get("lines")?.toString()?.trim('"')?.toIntOrNull() ?: 1
+                        Log.d(TAG, "Adding feed lines: $lines")
+                        printer.addFeedLine(lines)
+                    }
+                    "CUTPAPER", "CUT_PAPER" -> {
+                        Log.d(TAG, "Cutting paper")
+                        printer.cutPaper()
+                    }
+                    else -> {
+                        Log.w(TAG, "Unknown printer command type: ${command.type}")
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Error executing command ${command.type}", e)
             }
         }
     }
@@ -504,6 +678,20 @@ data class SubmissionResponse(
     val success: Boolean,
     val message: String,
     val teamId: String? = null
+)
+
+@Serializable
+data class HealthResponse(
+    val status: String,
+    val timestamp: Long
+)
+
+@Serializable
+data class RootResponse(
+    val service: String,
+    val version: String,
+    val status: String,
+    val endpoints: List<String>
 )
 
 @Serializable
@@ -527,4 +715,39 @@ data class PrintResponse(
     val success: Boolean,
     val message: String,
     val jobId: String? = null
+)
+
+@Serializable
+data class RegisterUploadRequest(
+    val team_id: String,
+    val team_name: String,
+    val compilation_status: String? = null,
+    val error_message: String? = null
+)
+
+@Serializable
+data class SimpleResponse(
+    val success: Boolean,
+    val message: String
+)
+
+@Serializable
+data class PrintCommandsRequest(
+    val team_id: String,
+    val team_name: String? = null,
+    val commands: List<PrinterCommand>
+)
+
+@Serializable
+data class PrinterCommand(
+    val type: String,
+    val text: String? = null,
+    val alignment: String? = null,
+    val bold: Boolean? = null,
+    val size: String? = null,
+    val underline: Boolean? = null,
+    val data: String? = null,
+    val qrSize: Int? = null,
+    val lines: Int? = null,
+    val params: Map<String, String>? = null  // Changed to String instead of JsonElement
 )

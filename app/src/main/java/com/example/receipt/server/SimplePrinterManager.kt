@@ -51,17 +51,20 @@ class PrinterManager(private val context: android.content.Context? = null) {
     private val mockPrinter = LoggingPrinter()
     private var realPrinter: com.example.receipt.server.printer.RealEpsonPrinter? = null
     
-    fun getRealPrinter(): EpsonPrinter {
-        // Initialize real printer if context is available and not already initialized
-        if (context != null && realPrinter == null) {
+    init {
+        // Initialize real printer once at startup if context is available
+        if (context != null) {
             try {
                 realPrinter = com.example.receipt.server.printer.RealEpsonPrinter(context)
-                println("Real Epson printer initialized successfully")
+                println("Real Epson printer initialized successfully at startup")
             } catch (e: Exception) {
-                println("Failed to initialize real printer, using mock: ${e.message}")
-                return mockPrinter
+                println("Failed to initialize real printer at startup: ${e.message}")
+                e.printStackTrace()
             }
         }
+    }
+    
+    fun getRealPrinter(): EpsonPrinter {
         return realPrinter ?: mockPrinter
     }
     

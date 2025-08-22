@@ -18,12 +18,15 @@ import com.example.receipt.server.printer.LibraryDiagnostics
 import com.example.receipt.server.printer.PrinterFactory
 import com.example.receipt.server.printer.RealEpsonPrinter
 import com.example.receipt.server.printer.UsbPrinterHelper
+import com.example.receipt.server.TeamStatsDisplay
+import com.example.receipt.server.CompilationStatus
 import com.example.receipt.server.ui.components.ConnectedClient
 import com.example.receipt.server.ui.components.ConnectedClientsCard
 import com.example.receipt.server.ui.components.InterpreterCodeDialog
 import com.example.receipt.server.ui.components.PrinterError
 import com.example.receipt.server.ui.components.PrinterErrorDialog
 import com.example.receipt.server.ui.components.createPrinterError
+import com.example.receipt.server.ui.screens.CompactDashboardScreen
 import com.example.receipt.server.ui.screens.DashboardScreen
 import com.example.receipt.server.ui.screens.TeamInfo
 import com.example.receipt.server.ui.theme.ReceiptPrinterServerTheme
@@ -250,10 +253,10 @@ fun ProductionDashboard(
     printerInitError: Exception?
 ) {
     // Collect real data from server manager
-    val teams by serverDataManager.teamsFlow.collectAsStateWithLifecycle()
-    val printerEnabledCount by serverDataManager.printerEnabledCountFlow.collectAsStateWithLifecycle()
+    val teamStats by serverDataManager.teamStatsFlow.collectAsStateWithLifecycle()
+    val printQueue by serverDataManager.printQueueFlow.collectAsStateWithLifecycle()
     val queueStatus by serverDataManager.queueStatusFlow.collectAsStateWithLifecycle()
-    val connectedClients by serverDataManager.clientsFlow.collectAsStateWithLifecycle()
+    val currentJob by serverDataManager.currentJobFlow.collectAsStateWithLifecycle()
     
     // Error dialog state
     var showPrinterError by remember { mutableStateOf(false) }
@@ -261,7 +264,7 @@ fun ProductionDashboard(
     
     // Interpreter code dialog state
     var showInterpreterDialog by remember { mutableStateOf(false) }
-    var selectedTeamForCode by remember { mutableStateOf<TeamInfo?>(null) }
+    var selectedTeam by remember { mutableStateOf<TeamStatsDisplay?>(null) }
     
     // Show initial printer error if exists
     LaunchedEffect(printerInitError) {
@@ -271,59 +274,32 @@ fun ProductionDashboard(
         }
     }
     
-    Box(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        DashboardScreen(
-            teams = teams,
-            printerEnabledCount = printerEnabledCount,
-            queueStatus = queueStatus,
-            onTeamClick = { team ->
-                // Navigate to team detail or toggle printer access
-                if (team.printerEnabled) {
-                    serverDataManager.disablePrinterForTeam(team.teamId)
-                } else {
-                    serverDataManager.enablePrinterForTeam(team.teamId)
-                }
-                Log.d("Dashboard", "Team ${team.teamName}: printer ${if (!team.printerEnabled) "enabled" else "disabled"}")
-            },
-            onTeamLongClick = { team ->
-                // Show interpreter code dialog
-                selectedTeamForCode = team
-                showInterpreterDialog = true
-                Log.d("Dashboard", "Showing interpreter code for ${team.teamName}")
-            },
-            onDeleteTeam = { team ->
-                // Delete the team
-                serverDataManager.deleteTeam(team.teamId)
-                Log.d("Dashboard", "Team ${team.teamName} deleted")
-            },
-            onRefresh = {
-                // In production, this would refresh from the server
-                Log.d("Dashboard", "Refreshing dashboard data...")
-            },
-            onTestPrint = {
-                // Check if printer is available before attempting print
-                if (printerInitError != null) {
-                    currentError = createPrinterError(printerInitError)
-                    showPrinterError = true
-                } else {
-                    onTestPrint()
-                }
+    // Use the new compact dashboard
+    CompactDashboardScreen(
+        teams = teamStats,
+        printQueue = printQueue,
+        currentJob = currentJob,
+        queueStatus = queueStatus,
+        onTeamClick = { team ->
+            // Show team details or interpreter code
+            selectedTeam = team
+            showInterpreterDialog = true
+            Log.d("Dashboard", "Team clicked: ${team.teamName}")
+        },
+        onTestPrint = {
+            // Check if printer is available before attempting print
+            if (printerInitError != null) {
+                currentError = createPrinterError(printerInitError)
+                showPrinterError = true
+            } else {
+                onTestPrint()
             }
-        )
-        
-        // Connected Clients overlay (only show if there are clients)
-        if (connectedClients.isNotEmpty()) {
-            ConnectedClientsCard(
-                clients = connectedClients,
-                modifier = Modifier
-                    .align(Alignment.BottomStart)
-                    .padding(16.dp)
-                    .widthIn(max = 400.dp)
-            )
+        },
+        onRefresh = {
+            // In production, this would refresh from the server
+            Log.d("Dashboard", "Refreshing dashboard data...")
         }
-    }
+    )
     
     // Show printer error dialog
     if (showPrinterError && currentError != null) {
@@ -339,15 +315,19 @@ fun ProductionDashboard(
     }
     
     // Show interpreter code dialog
-    if (showInterpreterDialog && selectedTeamForCode != null) {
-        val interpreterCode = serverDataManager.getInterpreterCode(selectedTeamForCode!!.teamId) ?: ""
+    if (showInterpreterDialog && selectedTeam != null) {
+        val statusMessage = when(selectedTeam!!.lastCompilationStatus) {
+            CompilationStatus.SUCCESS -> "✅ Last compilation successful"
+            CompilationStatus.FAILED -> "❌ Last compilation failed: ${selectedTeam!!.lastCompilationError}"
+            CompilationStatus.UNKNOWN -> "⚠️ No compilation attempts yet"
+        }
         InterpreterCodeDialog(
-            teamName = selectedTeamForCode!!.teamName,
-            teamId = selectedTeamForCode!!.teamId,
-            interpreterCode = interpreterCode,
+            teamName = selectedTeam!!.teamName,
+            teamId = selectedTeam!!.teamId,
+            interpreterCode = statusMessage,
             onDismiss = { 
                 showInterpreterDialog = false
-                selectedTeamForCode = null
+                selectedTeam = null
             }
         )
     }

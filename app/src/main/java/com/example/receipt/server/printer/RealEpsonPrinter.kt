@@ -65,16 +65,18 @@ class RealEpsonPrinter(
     override fun addText(text: String, style: TextStyle?) {
         synchronized(printLock) {
             try {
+                Log.d(TAG, "addText called with: $text")
                 printer?.let { p ->
                     // Apply text style if provided
                     style?.let { applyTextStyle(p, it) }
                     
                     // Add text
                     p.addText(text)
+                    Log.d(TAG, "Text added successfully to printer buffer")
                     
                     // Reset style to default
                     style?.let { resetTextStyle(p) }
-                }
+                } ?: Log.e(TAG, "Printer object is null!")
             } catch (e: Epos2Exception) {
                 Log.e(TAG, "Failed to add text: ${e.errorStatus}", e)
             }
@@ -185,13 +187,16 @@ class RealEpsonPrinter(
     override fun cutPaper() {
         synchronized(printLock) {
             try {
+                Log.d(TAG, "cutPaper called")
                 printer?.let { p ->
                     // Add cut command
                     p.addCut(Printer.CUT_FEED)
+                    Log.d(TAG, "Cut command added, sending data to printer...")
                     
                     // Send data to printer
                     sendDataToPrinter()
-                }
+                    Log.d(TAG, "Data sent to printer successfully")
+                } ?: Log.e(TAG, "Printer object is null when cutting!")
             } catch (e: Epos2Exception) {
                 Log.e(TAG, "Failed to cut paper: ${e.errorStatus}", e)
             }
@@ -277,25 +282,68 @@ class RealEpsonPrinter(
     
     private fun sendDataToPrinter() {
         try {
+            Log.d(TAG, "sendDataToPrinter starting, address: $printerAddress")
             printer?.let { p ->
-                // Connect to printer
-                p.connect(printerAddress, Printer.PARAM_DEFAULT)
-                
-                // Begin transaction
-                p.beginTransaction()
-                
-                // Send data
-                p.sendData(Printer.PARAM_DEFAULT)
-                
-                // End transaction
-                p.endTransaction()
-                
-                // Clear command buffer
-                p.clearCommandBuffer()
-                
-                // Disconnect
-                Thread.sleep(DISCONNECT_INTERVAL)
-                p.disconnect()
+                try {
+                    // Connect to printer
+                    Log.d(TAG, "Connecting to printer...")
+                    p.connect(printerAddress, Printer.PARAM_DEFAULT)
+                    Log.d(TAG, "Connected successfully")
+                    
+                    // Begin transaction
+                    Log.d(TAG, "Beginning transaction...")
+                    p.beginTransaction()
+                    
+                    // Send data
+                    Log.d(TAG, "Sending data...")
+                    p.sendData(Printer.PARAM_DEFAULT)
+                    Log.d(TAG, "Data sent")
+                    
+                    // End transaction
+                    p.endTransaction()
+                    Log.d(TAG, "Transaction ended")
+                    
+                    // Clear command buffer
+                    p.clearCommandBuffer()
+                    
+                    // Disconnect safely
+                    Thread.sleep(DISCONNECT_INTERVAL)
+                    try {
+                        p.disconnect()
+                        Log.d(TAG, "Disconnected from printer")
+                    } catch (disconnectError: Epos2Exception) {
+                        // ERR_ILLEGAL (6) means already disconnected, which is ok
+                        if (disconnectError.errorStatus != 6) {
+                            Log.e(TAG, "Error disconnecting: ${disconnectError.errorStatus}")
+                        }
+                    }
+                } catch (connectError: Epos2Exception) {
+                    // If we fail to connect, it might be because we're already connected
+                    // Try to disconnect first then reconnect
+                    if (connectError.errorStatus == 5) { // ERR_CONNECT
+                        Log.w(TAG, "Connection failed, trying to reset connection...")
+                        try {
+                            p.disconnect()
+                        } catch (e: Exception) {
+                            // Ignore disconnect errors
+                        }
+                        Thread.sleep(100)
+                        // Try once more
+                        p.connect(printerAddress, Printer.PARAM_DEFAULT)
+                        p.beginTransaction()
+                        p.sendData(Printer.PARAM_DEFAULT)
+                        p.endTransaction()
+                        p.clearCommandBuffer()
+                        Thread.sleep(DISCONNECT_INTERVAL)
+                        try {
+                            p.disconnect()
+                        } catch (e: Exception) {
+                            // Ignore disconnect errors
+                        }
+                    } else {
+                        throw connectError
+                    }
+                }
                 
                 Log.d(TAG, "Print job sent successfully")
             }
